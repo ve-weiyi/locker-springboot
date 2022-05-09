@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ve.locker.dao.UserPrivacyTagMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ve.locker.entity.UserPrivacyTag">
+        <id column="id" property="id" />
+        <result column="user_privacy_id" property="userPrivacyId" />
+        <result column="privacy_tag_id" property="privacyTagId" />
+        <result column="privacy_info_type" property="privacyInfoType" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_privacy_id, privacy_tag_id,privacy_info_type
+    </sql>
+
+</mapper>

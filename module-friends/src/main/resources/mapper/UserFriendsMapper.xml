@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ve.locker.dao.UserFriendsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ve.locker.entity.UserFriends">
+        <id column="id" property="id"/>
+        <result column="userId" property="userId"/>
+        <result column="friendId" property="friendId"/>
+        <result column="relationId" property="relationId"/>
+    </resultMap>
+
+    <!-- 好友 -->
+    <resultMap id="Friends" type="com.ve.locker.vo.FriendVo">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="remark_name" property="remarkName"/>
+        <collection property="userInfo" ofType="com.ve.locker.entity.UserInfo">
+            <id column="info_id" property="id"/>
+            <result column="email" property="email"/>
+            <result column="nickname" property="nickname"/>
+            <result column="avatar" property="avatar"/>
+            <result column="intro" property="intro"/>
+            <result column="web_site" property="webSite"/>
+            <result column="is_disable" property="isDisable"/>
+            <result column="create_time" property="createTime"/>
+            <result column="update_time" property="updateTime"/>
+        </collection>
+        <collection property="roles" ofType="com.ve.locker.vo.RoleTagVO">
+            <id column="rid" property="rid"/>
+            <result column="roleLabel" property="roleLabel"/>
+            <result column="roleName" property="roleName"/>
+        </collection>
+
+        <collection property="relations" ofType="com.ve.locker.vo.RelationVO">
+            <id column="relation_id" property="relationId"/>
+            <result column="relation_name" property="relationName"/>
+            <result column="relation_type" property="relationType"/>
+        </collection>
+
+    </resultMap>
+    <select id="searchUsersList" resultMap="Friends">
+        SELECT
+        ua.id,
+        ua.username,
+        ui.id as info_id,
+        ui.*,
+        r.id rid,
+        r.role_label roleLabel,
+        r.role_name roleName
+        FROM
+        tb_user_info AS ui
+        LEFT JOIN tb_user_auth ua ON ua.user_info_id = ui.id
+        LEFT JOIN tb_user_role ur ON ui.id = ur.user_id
+        LEFT JOIN tb_role r ON ur.role_id = r.id
+        <where>
+            <if test="condition.type != null &amp;&amp; condition.type==1">
+                ua.id =  #{condition.keywords}
+            </if>
+            <if test="condition.type != null &amp;&amp; condition.type==2">
+                and ua.username like concat('%',#{condition.keywords},'%')
+            </if>
+            <if test="condition.type != null &amp;&amp; condition.type==3">
+                and ui.nickname like concat('%',#{condition.keywords},'%')
+            </if>
+        </where>
+        ORDER BY
+        ua.id;
+    </select>
+
+    <select id="getFriendsList" resultMap="Friends">
+        SELECT
+        ua.id,
+        ua.username,
+        ui.id as info_id,
+        rr.*,
+        ui.*,
+        r.id rid,
+        r.role_label roleLabel,
+        r.role_name roleName
+        FROM
+        tb_user_friends AS uf
+        LEFT JOIN tb_user_auth AS ua ON uf.friend_id = ua.id
+        LEFT JOIN tb_user_info ui ON ui.id = ua.user_info_id
+        LEFT JOIN tb_user_role ur ON uf.friend_id = ur.user_id
+        LEFT JOIN tb_role r ON ur.role_id = r.id
+        LEFT JOIN t_relation rr ON uf.relation_id = rr.relation_id
+        <where>
+            <if test="condition.userId != null">
+                uf.user_id = #{condition.userId}
+            </if>
+            <if test="condition.relationId != null">
+                and uf.relation_id = #{condition.relationId}
+            </if>
+            <if test="condition.keywords != null">
+                and nickname like concat('%',#{condition.keywords},'%')
+            </if>
+        </where>
+        ORDER BY
+        uf.friend_id;
+    </select>
+
+    <select id="countFriends" resultType="java.lang.Integer">
+        SELECT
+        count( 1 )
+        FROM
+        tb_user_friends AS uf
+        LEFT JOIN tb_user_auth AS ua ON uf.friend_id = ua.id
+        LEFT JOIN tb_user_info ui ON ui.id = ua.user_info_id
+        <where>
+            <if test="condition.userId != null">
+                uf.user_id = #{condition.userId}
+            </if>
+            <if test="condition.relationId != null">
+                and uf.relation_id = #{condition.relationId}
+            </if>
+            <if test="condition.keywords != null">
+                and nickname like concat('%',#{condition.keywords},'%')
+            </if>
+        </where>
+        ORDER BY
+        ua.id;
+    </select>
+
+
+</mapper>

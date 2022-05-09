@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ve.locker.dao.UserPrivacyCardMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ve.locker.entity.UserPrivacyCard">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="privacy_details_id" property="privacyDetailsId" />
+        <result column="privacy_name" property="privacyName" />
+        <result column="privacy_cover" property="privacyCover" />
+        <result column="privacy_desc" property="privacyDesc" />
+        <result column="privacy_type_id" property="privacyTypeId" />
+        <result column="privacy_folder_id" property="privacyFolderId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="version" property="version" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_id, privacy_details_id, privacy_name, privacy_cover, privacy_desc, privacy_type_id, privacy_folder_id, create_time, update_time, version
+    </sql>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="UserPrivacyInfo" type="com.ve.locker.vo.UserPrivacyCardInfoVO">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="privacy_details_id" property="privacyDetailsId" />
+        <result column="privacy_name" property="privacyName" />
+        <result column="privacy_cover" property="privacyCover" />
+        <result column="privacy_desc" property="privacyDesc" />
+        <result column="privacy_type_id" property="privacyTypeId" />
+        <result column="privacy_folder_id" property="privacyFolderId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="version" property="version" />
+
+        <collection property="privacyType" ofType="com.ve.locker.entity.PrivacyType">
+            <id column="privacy_type_id" property="id" />
+
+        </collection>
+
+        <collection property="privacyFolder" ofType="com.ve.locker.entity.PrivacyFolder">
+            <id column="privacy_folder_id" property="id" />
+
+        </collection>
+
+        <collection property="privacyDetails" ofType="com.ve.locker.entity.PrivacyDetailsCard">
+            <id column="privacy_details_id" property="id" />
+            <result column="owner" property="owner" />
+            <result column="number" property="number" />
+            <result column="password" property="password" />
+            <result column="phone" property="phone" />
+            <result column="address" property="address" />
+            <result column="url" property="url" />
+            <result column="sign_date" property="signDate" />
+            <result column="valid_date" property="validDate" />
+            <result column="remark" property="remark" />
+            <result column="enable_encrypt" property="enableEncrypt" />
+        </collection>
+
+    </resultMap>
+
+    <select id="listUserPrivacyInfo" resultMap="UserPrivacyInfo">
+        SELECT up.*,
+        pd.*,
+        pt.*,
+        pf.*
+        FROM (
+        SELECT *
+        FROM t_user_privacy_card AS up
+        <where>
+            <if test="condition.userId != null">
+                user_id =#{condition.userId}
+            </if>
+            <if test="condition.privacyTagId!= null">
+                and privacy_tag_id like concat('%',#{condition.privacyTagId},'%')
+            </if>
+            <if test="condition.keywords != null">
+                and privacy_name like concat('%',#{condition.keywords},'%')
+            </if>
+        </where>
+        ) up
+        LEFT JOIN t_privacy_details_card pd ON pd.id = up.privacy_details_id
+        LEFT JOIN t_privacy_type pt ON pt.id = up.privacy_type_id
+        LEFT JOIN t_privacy_folder pf ON pf.id = up.privacy_folder_id
+    </select>
+</mapper>

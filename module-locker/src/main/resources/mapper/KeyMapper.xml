@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ve.locker.dao.KeyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ve.locker.entity.Key">
+        <id column="id" property="id" />
+        <result column="aes_key" property="aesKey" />
+        <result column="public_key" property="publicKey" />
+        <result column="private_Key" property="privateKey" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, aes_key, public_key, private_Key, create_time
+    </sql>
+
+</mapper>

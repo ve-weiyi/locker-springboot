@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ve.locker.dao.PrivacyTypeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ve.locker.entity.PrivacyType">
+        <id column="id" property="id" />
+        <result column="type_name" property="typeName" />
+        <result column="type_name_en" property="typeNameEn" />
+        <result column="type_cover" property="typeCover" />
+        <result column="type_color" property="typeColor" />
+        <result column="type_desc" property="typeDesc" />
+        <result column="ownerId" property="ownerId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, type_name, type_name_en, type_cover, type_color, type_desc,  owner_id
+    </sql>
+
+</mapper>

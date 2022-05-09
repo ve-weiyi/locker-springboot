@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <option name="BUILD_PROCESS_HEAP_SIZE" value="3096" />
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="app" />
+        <module name="lib-auth" />
+        <module name="module-friends" />
+        <module name="module-generator" />
+        <module name="module-locker" />
+        <module name="lib-application" />
+        <module name="lib-common" />
+        <module name="module-blog" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="module-privacy" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="app" options="-parameters" />
+      <module name="lib-application" options="-parameters" />
+      <module name="lib-auth" options="-parameters" />
+      <module name="lib-common" options="-parameters" />
+      <module name="module-blog" options="-parameters" />
+      <module name="module-friends" options="-parameters" />
+      <module name="module-generator" options="-parameters" />
+      <module name="module-locker" options="-parameters" />
+      <module name="module-privacy" options="-parameters" />
+    </option>
+  </component>
+</project>

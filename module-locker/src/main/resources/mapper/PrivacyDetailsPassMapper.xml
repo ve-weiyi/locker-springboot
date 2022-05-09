@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ve.locker.dao.PrivacyDetailsPassMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ve.locker.entity.PrivacyDetailsPass">
+        <id column="id" property="id" />
+        <result column="account" property="account" />
+        <result column="password" property="password" />
+        <result column="url" property="url" />
+        <result column="phone" property="phone" />
+        <result column="app_name" property="appName" />
+        <result column="remark" property="remark" />
+        <result column="enable_encrypt" property="enableEncrypt" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, account, password, url, phone, app_name, remark, enable_encrypt
+    </sql>
+
+    <!--获取最大id-->
+    <select id="getMaxPrivacyInfoId" resultType="integer">
+        SELECT max(id)
+        FROM t_privacy_details_pass;
+    </select>
+
+</mapper>

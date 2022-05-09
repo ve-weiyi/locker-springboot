@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ve.locker.dao.PrivacyTagMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ve.locker.entity.PrivacyTag">
+        <id column="id" property="id"/>
+        <result column="tag_name" property="tagName"/>
+        <result column="tag_cover" property="tagCover"/>
+        <result column="tag_desc" property="tagDesc"/>
+        <result column="ownerId" property="ownerId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, tag_name, tag_cover,tag_desc, owner_id
+    </sql>
+
+    <select id="listUserPrivacyTag" resultType="com.ve.locker.vo.PrivacyTagVO">
+
+        SELECT pt.*
+        FROM (
+        SELECT *
+        FROM t_user_privacy_tag AS up
+        <where>
+            <if test="condition.keywords != null">
+                privacy_info_type =#{condition.keywords}
+            </if>
+            <if test="condition.privacyInfoId!= null">
+                and user_privacy_id =#{condition.privacyInfoId}
+            </if>
+        </where>
+        ) up
+        LEFT JOIN t_privacy_tag pt ON pt.id = up.privacy_tag_id
+    </select>
+
+</mapper>
