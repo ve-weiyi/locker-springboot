@@ -24,11 +24,11 @@
         </dependency>
 
         <!--博客模块-->
-        <dependency>
-            <groupId>com.ve</groupId>
-            <artifactId>module-blog</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.ve</groupId>-->
+<!--            <artifactId>module-blog</artifactId>-->
+<!--            <version>0.0.1-SNAPSHOT</version>-->
+<!--        </dependency>-->
         <!--locker模块-->
         <dependency>
             <groupId>com.ve</groupId>

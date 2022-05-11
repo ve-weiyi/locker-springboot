@@ -11,6 +11,15 @@
         <relativePath/>
     </parent>
 
+    <modules>
+        <module>app</module>
+        <module>lib-application</module>
+        <module>lib-auth</module>
+        <module>lib-common</module>
+        <module>module-friends</module>
+        <module>module-locker</module>
+    </modules>
+
     <groupId>com.ve</groupId>
     <artifactId>locker</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -20,9 +29,9 @@
     <packaging>pom</packaging>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <java.version>11</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <java.version>1.8</java.version>
     </properties>
 
 
@@ -202,12 +211,4 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 </project>

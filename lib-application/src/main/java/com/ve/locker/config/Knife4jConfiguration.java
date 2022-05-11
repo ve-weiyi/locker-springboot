@@ -75,17 +75,17 @@ public class Knife4jConfiguration {
      */
     private ApiInfo apiInfo() {
         Contact contact=new Contact("huster",
-                "https:localhost:8081/doc.html",
+                "https://ve77.cn:8084/locker/api/doc.html",
                 "791422171@qq.com");
         //设置文档信息
         return new ApiInfoBuilder()
-                .title("iLocker储物柜接口文档")
+                .title("locker储物柜接口文档")
                 .description("一款面向Android手机的个人隐私信息保密APP软件，实现个人银行账户及密码、邮件地址及密码、好友联系信息、web应用系统账户及密码等个人隐私信息的加密保存。")
                 .contact(contact)
                 .version("1.0")
                 //.license("")//更新此API的许可证信息
                 //.licenseUrl("")//更新此API的许可证Url
-                //.termsOfServiceUrl("")//更新服务条款URL
+                .termsOfServiceUrl("https://ve77.cn/blog")//更新服务条款URL
                 .build();
     }
 
